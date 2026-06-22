@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Watchface Settings</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  body {
+    font-family: sans-serif;
+    background: #111;
+    color: #eee;
+    padding: 20px;
+  }
+  label {
+    font-size: 18px;
+  }
+  .picker {
+    margin-bottom: 25px;
+  }
+  button {
+    width: 100%;
+    padding: 14px;
+    font-size: 18px;
+    background: #00aa00;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+</style>
+</head>
+
+<body>
+
+<h2>Watchface Colors</h2>
+
+<div class="picker">
+  <label>Primary Color</label><br>
+  <input type="color" id="primary" value="#00FF00">
+</div>
+
+<div class="picker">
+  <label>Accent Color</label><br>
+  <input type="color" id="accent" value="#FFFFFF">
+</div>
+
+<button id="save">Save</button>
+
+<script>
+document.getElementById("save").addEventListener("click", function() {
+
+  var config = {
+    primaryColor: document.getElementById("primary").value.replace("#", ""),
+    accentColor:  document.getElementById("accent").value.replace("#", "")
+  };
+
+  var url = "pebblejs://close#" + encodeURIComponent(JSON.stringify(config));
+  document.location = url;
+});
+</script>
+
+</body>
+</html>
