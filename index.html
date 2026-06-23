@@ -18,6 +18,14 @@
   .picker {
     margin-bottom: 25px;
   }
+  input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 6px;
+  }
   button {
     width: 100%;
     padding: 14px;
@@ -27,21 +35,50 @@
     border: none;
     border-radius: 6px;
   }
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+  .checkbox-row label {
+    margin-left: 10px;
+    font-size: 18px;
+  }
 </style>
 </head>
 
 <body>
 
-<h2>Watchface Colors</h2>
+<h2>Watchface Settings</h2>
 
+<!-- Primary Color -->
 <div class="picker">
   <label>Primary Color</label><br>
   <input type="color" id="primary" value="#00FF00">
 </div>
 
+<!-- Accent Color -->
 <div class="picker">
   <label>Accent Color</label><br>
   <input type="color" id="accent" value="#FFFFFF">
+</div>
+
+<!-- Latitude -->
+<div class="picker">
+  <label>Latitude</label><br>
+  <input type="number" id="latitude" step="0.0001" placeholder="52.2681">
+</div>
+
+<!-- Longitude -->
+<div class="picker">
+  <label>Longitude</label><br>
+  <input type="number" id="longitude" step="0.0001" placeholder="-113.8112">
+</div>
+
+<!-- Manual Override -->
+<div class="checkbox-row">
+  <input type="checkbox" id="manualOnly">
+  <label for="manualOnly">Always use manual location (disable GPS)</label>
 </div>
 
 <button id="save">Save</button>
@@ -51,7 +88,10 @@ document.getElementById("save").addEventListener("click", function() {
 
   var config = {
     primaryColor: document.getElementById("primary").value.replace("#", ""),
-    accentColor:  document.getElementById("accent").value.replace("#", "")
+    accentColor:  document.getElementById("accent").value.replace("#", ""),
+    latitude:     document.getElementById("latitude").value,
+    longitude:    document.getElementById("longitude").value,
+    manualOnly:   document.getElementById("manualOnly").checked ? 1 : 0
   };
 
   var url = "pebblejs://close#" + encodeURIComponent(JSON.stringify(config));
